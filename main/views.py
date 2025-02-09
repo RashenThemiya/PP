@@ -16,9 +16,8 @@ def profile(request):
     return render(request, 'profile.html', {'skills': skills, 'projects': projects, 'posts': posts})
 
 def skills(request):
-    """Render the skills page."""
-    skills = Skill.objects.all()
-    return render(request, 'skills.html', {'skills': skills})
+    return render(request, 'skills.html', {'range_100': range(100)})
+# Ensure this matches your template file name
 
 def projects(request):
     """Render the projects page."""

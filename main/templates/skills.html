@@ -1,5 +1,202 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h2>Skills</h2>
-<p>Details about your skills.</p>
+<div class="container mt-5">
+    
+<style>
+  body {
+      background: linear-gradient(135deg, #0a192f 20%, #2b1c42 80%);
+      background-attachment: fixed;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+  }
+
+  .title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+  }
+
+  .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 3px solid #ffdd57;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      color: #ffdd57;
+  }
+
+  .skill-box {
+      background: rgba(243, 235, 183, 0.11); /* Light background color */
+      border: 2px solid rgba(186, 183, 167, 0); /* Outline border */
+      border-radius: 8px; /* Rounded corners for the small box */
+      padding: 10px 15px; /* Padding inside the box */
+      margin-bottom: 10px; /* Space between items */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+  }
+  .skill-box i {
+    margin-right: 10px; /* Increased space between icon and text */
+}
+  .skill-box:hover {
+      background: rgba(255, 223, 0, 0.3); /* Darker background on hover */
+  }
+
+  .skill-box img {
+      width: 25px;
+      height: auto;
+      margin-right: 10px;
+  }
+
+  .skill-card {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 50, 0.8));
+      color: white;
+      border-radius: 15px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .skill-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 20px rgba(255, 223, 0, 0.5);
+  }
+
+  .skill-title {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+  }
+
+  .skill-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+  }
+
+  .skill-text div {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+  }
+
+  .tech-logo {
+      width: 40px;
+      height: auto;
+      margin-right: 10px;
+  }
+</style>
+
+    <!-- Full Stack Development Skills Section -->
+    <section class="mb-5">
+        <h3 class="text-center section-title">Full Stack Development Skills</h3>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <!-- Programming Languages -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-code text-primary"></i> Programming Languages</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><img src="{% static 'images/Python-logo-notext.png' %}" class="tech-logo" alt="Python Logo" loading="lazy"> Python</div>
+                        <div class="skill-box"><img src="{% static 'images/Java_programming_language_logo.png' %}" class="tech-logo" alt="Java Logo" loading="lazy"> Java</div>
+                        <div class="skill-box"><img src="{% static 'images/PHP-logo.png' %}" class="tech-logo" alt="PHP Logo" loading="lazy"> PHP</div>
+                        <div class="skill-box"><img src="{% static 'images/C_Programming_Language.png' %}" class="tech-logo" alt="C Logo" loading="lazy"> C / C++</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend Development -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-paint-brush text-success"></i> Frontend Development</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><img src="{% static 'images/HTML5_logo_and_wordmark.png' %}" class="tech-logo" alt="HTML5 Logo" loading="lazy"> HTML5</div>
+                        <div class="skill-box"><img src="{% static 'images/CSS3_logo_and_wordmark.png' %}" class="tech-logo" alt="CSS3 Logo"> CSS3</div>
+                        <div class="skill-box"><img src="{% static 'images/Bootstrap_logo.png' %}" class="tech-logo" alt="Bootstrap Logo"> Bootstrap</div>
+                        <div class="skill-box"><img src="{% static 'images/React-icon.png' %}" class="tech-logo" alt="React Logo"> React.js</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Development -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-server text-warning"></i> Backend Development</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><img src="{% static 'images/Django_logo.png' %}" class="tech-logo" alt="Django Logo"> Django</div>
+                        <div class="skill-box"><img src="{% static 'images/Spring_Framework_Logo_2018.png' %}" class="tech-logo" alt="Spring Boot Logo"> Spring Boot</div>
+                        <div class="skill-box"><img src="{% static 'images/Node.js_logo.png' %}" class="tech-logo" alt="Node.js Logo"> Node.js</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DevOps Section -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-cloud text-info"></i> DevOps Skills</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><img src="{% static 'images/Amazon_Web_Services_Logo.png' %}" class="tech-logo" alt="AWS Logo"> AWS</div>
+                        <div class="skill-box"><img src="{% static 'images/Octicons-mark-github.png' %}" class="tech-logo" alt="GitHub Logo"> GitHub</div>
+                        <div class="skill-box"><img src="{% static 'images/doker.png' %}" class="tech-logo" alt="Docker Logo"> Docker</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testing Section -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-vial text-danger"></i> Testing Skills</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><img src="{% static 'images/junit5-logo.png' %}" class="tech-logo" alt="JUnit Logo"> JUnit</div>
+                        <div class="skill-box"><img src="{% static 'images/Selenium_Logo.png' %}" class="tech-logo" alt="Selenium Logo"> Selenium</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Other & Common Skills Section -->
+    <section class="mb-5">
+        <h3 class="text-center section-title">Other & Common Skills</h3>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <!-- Tools & Design -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-tools text-warning"></i> Tools & Design</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" class="tech-logo" alt="Photoshop Logo"> Photoshop</div>
+                        <div class="skill-box"><img src="{% static 'images/canva.png' %}" class="tech-logo" alt="Canva Logo"> Canva</div>
+                        <div class="skill-box"><img src="{% static 'images/exel.jpg' %}" class="tech-logo" alt="Excel Logo"> Excel</div>
+                        <div class="skill-box"><img src="{% static 'images/filmora.png' %}" class="tech-logo" alt="Filmora Logo"> Filmora</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal & Professional -->
+            <div class="col">
+                <div class="skill-card">
+                    <h5 class="skill-title"><i class="fas fa-users text-success"></i> Personal & Professional</h5>
+                    <div class="skill-text">
+                        <div class="skill-box"><i class="fas fa-comments"></i> Communication</div>
+                        <div class="skill-box"><i class="fas fa-lightbulb"></i> Logical Thinking</div>
+                        <div class="skill-box"><i class="fas fa-puzzle-piece"></i> Problem Solving</div>
+                        <div class="skill-box"><i class="fas fa-briefcase"></i> Business Acumen</div>
+                        <div class="skill-box"><i class="fas fa-smile"></i> Friendly & Approachable</div>
+                        <div class="skill-box"><i class="fas fa-users"></i> Team Collaboration</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<!-- FontAwesome for Icons -->
+<script src="https://kit.fontawesome.com/YOUR_FA_KIT_CODE.js" crossorigin="anonymous"></script>
+
 {% endblock %}
