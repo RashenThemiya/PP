@@ -1,0 +1,11 @@
+/* styles.css */
+body {
+  padding-top: 80px; /* Adjust for navbar */
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 50px;
+}

@@ -1,0 +1,437 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* General Styling */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #0A1931;
+        color: white;
+    }
+
+    /* Profile Section */
+    .profile-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 50px;
+        border-radius: 15px;
+        text-align: left;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    }
+    .profile-section:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 30px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Profile Image */
+    .profile-image {
+        width: 250px;
+        height: auto;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease-in-out;
+    }
+    .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .profile-image:hover {
+        transform: scale(1.05);
+        border-color: #ffeb3b;
+    }
+
+    
+    /* Entry Animation */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Social Icons */
+    .social-icons a {
+        font-size: 24px;
+        color: white;
+        margin-right: 15px;
+        transition: transform 0.3s ease-in-out, color 0.3s;
+    }
+    .social-icons a:hover {
+        transform: scale(1.2);
+        color: #ffeb3b;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Profile Section -->
+    <div class="profile-section shadow-lg">
+        <div class="profile-image">
+            <img src="{% static 'images/rashen.png' %}" alt="Your Photo">
+        </div>
+        <div>
+            <h2 class="fw-bold">M H A Rashen Themiya</h2>
+            <p class="lead">Software Engineer | AI Enthusiast | Volunteer</p>
+            <div class="social-icons mt-3">
+                <a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+ <!-- About Section with Two Columns -->
+<div class="about-section shadow-lg mt-4">
+    <div class="row align-items-center">
+        <!-- Description Column -->
+        <div class="col-md-6 about-text">
+            <h3 class="fw-bold"><i class="fas fa-user"></i> About Me</h3>
+            <p>Hi! I'm <strong>M H A Rashen Themiya</strong>, a passionate software developer specializing in AI, web development, and data science. I thrive on learning new things, solving challenges, and building impactful solutions.</p>
+            <p>My goal is to become a highly skilled software engineer and contribute my knowledge to help shape a better world.</p>
+        </div>
+
+        <!-- Hobbies Column -->
+        <div class="col-md-6 hobbies-section">
+            <h3 class="fw-bold"><i class="fas fa-heart"></i> Hobbies & Interests</h3>
+            <div class="hobby-cards">
+                <div class="hobby-card">
+                    <i class="fas fa-music"></i>
+                    <p>Listening to Music</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-plane"></i>
+                    <p>Traveling & Exploring</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-book"></i>
+                    <p>Reading Tech Blogs</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-code"></i>
+                    <p>Coding and AI Research</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-gamepad"></i>
+                    <p>Playing Video Games</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* About Section Styling */
+.about-section {
+    background: linear-gradient(135deg, rgba(255, 238, 88, 0.2), rgba(255, 111, 0, 0.2));
+    padding: 40px;
+    border-radius: 20px;
+    text-align: left;
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s ease-in-out;
+}
+
+.about-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.4);
+}
+
+/* Hobbies Section */
+.hobbies-section {
+    text-align: center;
+}
+
+/* Hobby Cards */
+.hobby-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.hobby-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+}
+
+.hobby-card i {
+    font-size: 22px;
+    color: #ffc107;
+}
+
+.hobby-card p {
+    font-size: 16px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: bold;
+}
+
+.hobby-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-section .row {
+        flex-direction: column;
+    }
+
+    .hobby-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+
+    <!-- Education Section -->
+    <div class="card education-section shadow-lg mt-4">
+        <div class="card-body">
+            <h3 class="text-warning section-title"><i class="fas fa-graduation-cap"></i> Education</h3>
+            <div class="education-grid">
+                <div class="education-item">
+                    <div class="education-icon">
+                        <img src="{% static 'images/susl.jpg' %}" alt="Sabaragamuwa University Logo">
+                    </div>
+                    <div class="education-content">
+                        <strong>Bachelor of Science (Hons) in Software Engineering</strong><br>
+                        <span>Sabaragamuwa University of Sri Lanka (2022 - 2026)</span>
+                    </div>
+                </div>
+                <div class="education-item">
+                    <div class="education-icon">
+                        <img src="{% static 'images/nnc.jpg' %}" alt="Nalanda College Logo">
+                    </div>
+                    <div class="education-content">
+                        <strong>Advanced Level (Physical Science)</strong><br>
+                        <span>Nalanda Boys' National College - Minuwangoda (2018 - 2020)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        /* Education Section */
+        .education-section {
+            background: linear-gradient(135deg, rgba(255, 238, 88, 0.2), rgba(0, 193, 255, 0.2));
+            padding: 40px;
+            border-radius: 20px;
+            animation: fadeInUp 0.8s ease-in-out;
+            transition: transform 0.4s ease-in-out;
+        }
+    
+        /* Section Title */
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffc107;
+            font-weight: bold;
+            text-align: center;
+        }
+    
+        /* Grid Layout */
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+    
+        @media (min-width: 768px) {
+            .education-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    
+        /* Individual Education Item */
+        .education-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            text-align: center;
+        }
+    
+        @media (min-width: 768px) {
+            .education-item {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+    
+        .education-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+    
+        /* Education Icon */
+        .education-icon img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s;
+        }
+    
+        @media (min-width: 768px) {
+            .education-icon {
+                margin-right: 15px;
+            }
+    
+            .education-item {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+    
+        .education-icon img:hover {
+            transform: scale(1.1);
+            border-color: #ffeb3b;
+        }
+    
+        /* Education Content */
+        .education-content {
+            color: rgba(255, 255, 255, 0.85);
+        }
+    
+        .education-content strong {
+            font-size: 18px;
+            color: #ffeb3b;
+        }
+    
+        .education-content span {
+            display: block;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+        }
+    </style>
+    
+<!-- Volunteering Experience -->
+<div class="card shadow-lg mt-4 volunteer-section">
+    <div class="card-body">
+        <h3 class="text-warning"><i class="fas fa-hands-helping"></i> Volunteering Experience</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <img src="{% static 'images/icarc.png' %}" alt="ICARC Logo" class="volunteer-logo">
+                <div class="volunteer-content">
+                    <strong>Technical Assistant</strong> - International Conference on Advanced Research in Computing (Feb 2023 - 1 mo)
+                    <br>
+                    <span class="text-muted">Provided technical assistance in Science and Technology sessions.</span>
+                </div>
+            </li>             
+        </ul>
+    </div>
+</div>
+
+<style>
+    /* Volunteer Section */
+   /* Volunteer Section */
+.volunteer-section {
+    background: linear-gradient(135deg, rgba(0, 193, 255, 0.15), rgba(255, 111, 0, 0.15));
+    border-radius: 15px;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+}
+
+.volunteer-section:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* List Items */
+.list-group-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    color: white;  /* Ensures text is visible */
+}
+
+.list-group-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.01);
+}
+
+/* Logo */
+.volunteer-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.volunteer-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Text Content */
+.volunteer-content {
+    flex: 1;
+    color: white; /* Makes all text visible */
+}
+
+/* Text Muted */
+.text-muted {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 1); /* Change to full white */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+    .list-group-item {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .volunteer-logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .text-muted {
+        font-size: 13px;
+    }
+}
+
+</style>
+
+    
+</div>
+
+{% endblock %}

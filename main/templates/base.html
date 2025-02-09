@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Portfolio{% endblock %}</title>
+
+    {% load static %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Navbar Styling */
+        .navbar {
+            background-color: #003366;
+            transition: all 0.4s ease-in-out;
+        }
+
+        /* Change navbar on scroll */
+        .navbar.scrolled {
+            background-color: #002244;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hover Effect */
+        .nav-link {
+            position: relative;
+            color: white;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #66c2ff;
+            text-shadow: 0 0 10px rgba(102, 194, 255, 0.8);
+        }
+
+        /* Active link underline animation */
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -3px;
+            width: 0;
+            height: 2px;
+            background: #66c2ff;
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Sections Styling */
+        .content-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Icon Styling */
+        .nav-link i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Buttons -->
+<div class="floating-buttons">
+    <a href="{% url 'profile' %}" class="floating-btn" id="Profile-btn">
+        <i class="fas fa-user-circle"></i>
+    </a>
+    <a href="{% url 'skills' %}" class="floating-btn" id="skills-btn">
+        <i class="fas fa-code"></i>
+    </a>
+    <a href="{% url 'projects' %}" class="floating-btn" id="projects-btn">
+        <i class="fas fa-laptop-code"></i>
+    </a>
+    <a href="https://wa.me/+94764233731" target="_blank" class="floating-btn whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
+<!-- Floating Buttons Styling -->
+<style>
+    .floating-buttons {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+    }
+
+    .floating-btn {
+        width: 55px;
+        height: 55px;
+        background: #003366;
+        color: white;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+    }
+
+    .floating-btn:hover {
+        background: #66c2ff;
+        transform: scale(1.1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    }
+
+    .whatsapp-btn {
+        background: #25D366;
+    }
+
+    .whatsapp-btn:hover {
+        background: #1ebe57;
+    }
+</style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-white" href="{% url 'home' %}"><i class="fas fa-user"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'skills' %}"><i class="fas fa-code"></i> Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'projects' %}"><i class="fas fa-laptop-code"></i> Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'posts' %}"><i class="fas fa-blog"></i> Blog Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5 pt-5">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white py-3 mt-5">
+        <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const nav = document.querySelector('.navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+    
+        // Function to update the active navigation link
+        function updateActiveNav(targetLink) {
+            navLinks.forEach(link => link.classList.remove('active'));
+    
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+        }
+    
+        // Add event listeners to navbar links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                // Ensure we navigate to the correct page without JavaScript errors
+                updateActiveNav(this);
+            });
+        });
+    
+        // Navbar shrink effect on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    
+        // Highlight the active nav link based on the current page
+        function highlightActiveLink() {
+            const currentPath = window.location.pathname;
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    
+        highlightActiveLink();
+    });
+    
+ </script>
+</body>
+</html>
