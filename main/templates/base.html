@@ -11,7 +11,19 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            flex: 1;
+        }
+        
         /* Navbar Styling */
         .navbar {
             background-color: #003366;
@@ -72,6 +84,88 @@
         .nav-link i {
             margin-right: 8px;
         }
+
+        /* Floating Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            width: 55px;
+            height: 55px;
+            background: #003366;
+            color: white;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+        }
+
+        .floating-btn:hover {
+            background: #66c2ff;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1ebe57;
+        }
+
+        /* Blog Post Button */
+        #blog-btn {
+            background: #ff5722;
+        }
+
+        #blog-btn:hover {
+            background: #ff7043;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: #003366;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer .footer-content {
+            margin-bottom: 30px;
+        }
+
+        footer a {
+            color: #66c2ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .social-links i {
+            margin: 0 10px;
+            font-size: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        footer .social-links i:hover {
+            transform: scale(1.2);
+        }
+
     </style>
 </head>
 <body>
@@ -87,52 +181,13 @@
     <a href="{% url 'projects' %}" class="floating-btn" id="projects-btn">
         <i class="fas fa-laptop-code"></i>
     </a>
+    <a href="{% url 'posts' %}" class="floating-btn" id="blog-btn">
+        <i class="fas fa-blog"></i>
+    </a>
     <a href="https://wa.me/+94764233731" target="_blank" class="floating-btn whatsapp-btn">
         <i class="fab fa-whatsapp"></i>
     </a>
 </div>
-
-<!-- Floating Buttons Styling -->
-<style>
-    .floating-buttons {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        z-index: 1000;
-    }
-
-    .floating-btn {
-        width: 55px;
-        height: 55px;
-        background: #003366;
-        color: white;
-        font-size: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease-in-out;
-        text-decoration: none;
-    }
-
-    .floating-btn:hover {
-        background: #66c2ff;
-        transform: scale(1.1);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
-    }
-
-    .whatsapp-btn {
-        background: #25D366;
-    }
-
-    .whatsapp-btn:hover {
-        background: #1ebe57;
-    }
-</style>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-lg">
@@ -159,8 +214,23 @@
     </div>
     
     <!-- Footer -->
-    <footer class="bg-dark text-center text-white py-3 mt-5">
-        <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 mhartvishwajith. All rights reserved.</p>
+            <p>Explore more: 
+                <a href="{% url 'profile' %}">Profile</a> | 
+                <a href="{% url 'projects' %}">Projects</a> | 
+                <a href="{% url 'skills' %}">Skills</a>
+            </p>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/rashen-themiya-2b0298249/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/RashenThemiya" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
     </footer>
 
     <!-- Bootstrap JS and dependencies -->
@@ -168,50 +238,49 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     
     <!-- Custom JavaScript -->
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const nav = document.querySelector('.navbar');
-        const navLinks = document.querySelectorAll('.nav-link');
-    
-        // Function to update the active navigation link
-        function updateActiveNav(targetLink) {
-            navLinks.forEach(link => link.classList.remove('active'));
-    
-            if (targetLink) {
-                targetLink.classList.add('active');
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const nav = document.querySelector('.navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+        
+            // Function to update the active navigation link
+            function updateActiveNav(targetLink) {
+                navLinks.forEach(link => link.classList.remove('active'));
+        
+                if (targetLink) {
+                    targetLink.classList.add('active');
+                }
             }
-        }
-    
-        // Add event listeners to navbar links
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                // Ensure we navigate to the correct page without JavaScript errors
-                updateActiveNav(this);
-            });
-        });
-    
-        // Navbar shrink effect on scroll
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    
-        // Highlight the active nav link based on the current page
-        function highlightActiveLink() {
-            const currentPath = window.location.pathname;
+        
+            // Add event listeners to navbar links
             navLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
+                link.addEventListener('click', function(event) {
+                    // Ensure we navigate to the correct page without JavaScript errors
+                    updateActiveNav(this);
+                });
+            });
+        
+            // Navbar shrink effect on scroll
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
                 }
             });
-        }
-    
-        highlightActiveLink();
-    });
-    
- </script>
+        
+            // Highlight the active nav link based on the current page
+            function highlightActiveLink() {
+                const currentPath = window.location.pathname;
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        
+            highlightActiveLink();
+        });
+    </script>
 </body>
 </html>
