@@ -1,5 +1,162 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h2>Projects</h2>
-<p>Details about your projects.</p>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a192f 20%, #2b1c42 80%);
+      background-attachment: fixed;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 3px solid #ffdd57;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      color: #ffdd57;
+      text-align: center; /* Centers the text */
+      
+    }
+
+ 
+
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .project-item {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 50, 0.8));
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      border: 3px solid #d4af37; /* Gold border on hover */
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly lighter background for effect */
+    }
+
+    .project-item:hover h3 {
+      color: #d4af37; /* Change text color to gold on hover */
+    }
+
+    .project-item h3 {
+      padding: 20px;
+      font-size: 1.8rem;
+      color: #2c3e50;
+      background-color: #ecf0f1;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .project-item p {
+      color: #7f8c8d;
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .project-item a {
+      font-size: 1rem;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .project-item a:hover {
+      color: #0056b3;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .video-thumbnail video {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .video-thumbnail:hover video {
+      transform: scale(1.05);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      color: white;
+      opacity: 0.8;
+      border: 3px solid white;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      transition: opacity 0.3s ease;
+    }
+  </style>
+
+  <h2>My Projects</h2>
+  <div class="project-list">
+    {% for project in projects %}
+      <div class="project-item">
+        <h3>{{ project.title }}</h3>
+
+        {% if project.video %}
+          <div class="video-thumbnail">
+            <video id="video-{{ project.id }}" poster="{{ project.image.url }}" preload="metadata">
+              <source src="{{ project.video.url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="play-button">▶</div>
+          </div>
+        {% elif project.image %}
+          <img src="{{ project.image.url }}" alt="{{ project.title }}" style="width: 100%; height: auto; border-bottom: 1px solid #ddd;">
+        {% endif %}
+
+        <div style="padding: 0 20px 20px;">
+          <p>{{ project.description|truncatewords:20 }}</p>
+
+          {% if project.github_link %}
+            <p><a href="{{ project.github_link }}" target="_blank">View GitHub Repository →</a></p>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p style="text-align: center; font-size: 1.5rem; color: #999;">No projects found.</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    document.querySelectorAll('.video-thumbnail').forEach(function(thumbnail) {
+      thumbnail.addEventListener('click', function() {
+        const video = thumbnail.querySelector('video');
+        if (video.paused) {
+          video.play();
+          thumbnail.querySelector('.play-button').style.opacity = '0';
+        } else {
+          video.pause();
+          thumbnail.querySelector('.play-button').style.opacity = '1';
+        }
+      });
+    });
+  </script>
 {% endblock %}

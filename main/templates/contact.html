@@ -1,5 +1,120 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Contact</h2>
-<p>Contact details.</p>
+
+<div class="animated-bg">
+  <div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-lg p-4 text-center">
+      <h2 class="text-primary mb-4">Contact Me</h2>
+
+      <div class="d-flex justify-content-center flex-wrap gap-3">
+        <a href="tel:+94764233731" class="contact-icon bg-primary" data-bs-toggle="tooltip" title="Click to Call">
+          <i class="fas fa-phone-alt"></i>
+        </a>
+        <a href="https://wa.me/94764233731" class="contact-icon bg-success" data-bs-toggle="tooltip" title="Click to Chat on WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:mhartvishwajith@std.appsc.sab.ac.lk" class="contact-icon bg-danger" data-bs-toggle="tooltip" title="Click to Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/rashen-themiya-2b0298249/" target="_blank" class="contact-icon bg-primary" data-bs-toggle="tooltip" title="View LinkedIn Profile">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://www.facebook.com/rashen.themiya1" target="_blank" class="contact-icon bg-primary" data-bs-toggle="tooltip" title="Visit Facebook Profile">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://github.com/RashenThemiya" target="_blank" class="contact-icon bg-dark" data-bs-toggle="tooltip" title="View GitHub Profile">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.hackerrank.com/profile/rashenrashen4" target="_blank" class="contact-icon bg-success" data-bs-toggle="tooltip" title="View HackerRank Profile">
+          <i class="fab fa-hackerrank"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Animated Background */
+  .animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, #0044cc, #00c4ff, #0066ff);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .card {
+    max-width: 500px;
+    margin: auto;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+
+  .contact-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+<!-- Enable Bootstrap Tooltips -->
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    let tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    
+    // Initialize tooltips
+    tooltips.forEach(tooltipEl => new bootstrap.Tooltip(tooltipEl));
+  
+    let index = 0;
+  
+    function showNextTooltip() {
+      if (tooltips.length > 0) {
+        // Hide all tooltips first
+        tooltips.forEach(el => bootstrap.Tooltip.getInstance(el)?.hide());
+  
+        // Show the next tooltip
+        bootstrap.Tooltip.getInstance(tooltips[index])?.show();
+  
+        // Move to the next tooltip or loop back to the start
+        index = (index + 1) % tooltips.length;
+      }
+    }
+  
+    // Show tooltips every 3 seconds
+    setInterval(showNextTooltip, 1000);
+  });
+  
+</script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 {% endblock %}

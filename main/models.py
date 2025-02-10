@@ -20,12 +20,14 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-# New Post Model (For Blog or Articles)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    image = models.ImageField(upload_to="posts/", blank=True, null=True)
+    image = models.ImageField(upload_to="posts/images/", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to="posts/files/", blank=True, null=True)  # For PDF, ZIP, or presentation files
 
     def __str__(self):
         return self.title

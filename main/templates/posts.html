@@ -1,5 +1,199 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Blog Posts</h2>
-<p>Details about your blog posts.</p>
+  <h2 class="blog-heading">Blog Posts</h2>
+
+  <div class="post-list">
+    {% for post in page_obj %}
+      <div class="post-item">
+        <h3 class="post-title">{{ post.title }}</h3>
+
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+        {% endif %}
+
+        <p class="post-content short-content" id="content-{{ post.id }}">
+          {{ post.content|truncatewords:40 }}...
+        </p>
+        
+        {% if post.content|wordcount > 40 %}
+          <button class="see-more" data-post-id="{{ post.id }}" data-post-title="{{ post.title }}" data-post-content="{{ post.content }}">See More</button>
+        {% endif %}
+
+        {% if post.file %}
+          <p class="post-file">
+            <a href="{{ post.file.url }}" target="_blank">Download File ({{ post.file.name|slice:"-3:" }})</a>
+          </p>
+        {% endif %}
+
+        <p class="post-date">Published on {{ post.created_at|date:"F j, Y" }}</p>
+      </div>
+    {% empty %}
+      <p class="no-posts">No blog posts found.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="pagination-btn">First</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn">Previous</a>
+    {% endif %}
+
+    <span class="current-page">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-btn">Last</a>
+    {% endif %}
+  </div>
+
+  <!-- Modal Popup -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h3 id="modal-title"></h3>
+      <p id="modal-body"></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("modal").style.display = "none";
+
+      document.querySelectorAll(".see-more").forEach(button => {
+        button.addEventListener("click", function () {
+          let postTitle = this.getAttribute("data-post-title");
+          let postContent = this.getAttribute("data-post-content");
+
+          document.getElementById("modal-title").textContent = postTitle;
+          document.getElementById("modal-body").textContent = postContent;
+          document.getElementById("modal").style.display = "flex";
+        });
+      });
+
+      document.querySelector(".close-button").addEventListener("click", function () {
+        document.getElementById("modal").style.display = "none";
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0A1931;
+      color: white;
+    }
+    .blog-heading {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 3px solid #ffdd57;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      color: #ffdd57;
+      text-align: center; /* Centers the text */
+    }
+    .post-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .post-item {
+      background: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    .post-title {
+      font-size: 2rem;
+      text-align: center;
+      color: #f1c40f;
+    }
+    .post-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-bottom: 2px solid #444;
+      margin-bottom: 15px;
+    }
+    .see-more {
+      background: none;
+      border: none;
+      color: #f1c40f;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .post-date {
+      font-size: 1rem;
+      color: #bbb;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .post-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Pagination Styles */
+    .pagination {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .pagination-btn {
+      padding: 10px 15px;
+      background: #d4af37;
+      color: #121212;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 5px;
+      transition: 0.3s;
+    }
+    .pagination-btn:hover {
+      background: #f1c40f;
+    }
+    .current-page {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #f1c40f;
+      margin: 0 10px;
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      width: 50%;
+      box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+    .close-button {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #f1c40f;
+      display: block;
+      text-align: right;
+    }
+    .close-button:hover {
+      color: #e74c3c;
+    }
+  </style>
 {% endblock %}
