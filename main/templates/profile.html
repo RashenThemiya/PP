@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+<title>{% block title %}Rashen-Profile{% endblock %}</title>
 {% load static %}
 {% block content %}
 
@@ -125,7 +126,7 @@
                 <a href="mailto:mhartvishwajith@std.appsc.sab.ac.lk"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="mt-4">
-                <a href="{% static 'docs/Rashen_Themiya_CV.pdf' %}" download="Rashen_Themiya_CV.pdf" class="btn-download-cv">
+                <a href="{% static 'docs/RashenCV.pdf' %}" download="Rashen_Themiya_CV.pdf" class="btn-download-cv">
                     <i class="fas fa-download"></i> Download CV
                 </a>
             </div>
@@ -145,34 +146,33 @@
             <p>My goal is to become a highly skilled software engineer and contribute my knowledge to help shape a better world.</p>
         </div>
 
-        <!-- Hobbies Column -->
-        <div class="col-md-6 hobbies-section">
-            <h3 class="fw-bold"><i class="fas fa-heart"></i> Hobbies & Interests</h3>
-            <div class="hobby-cards">
-                <div class="hobby-card">
-                    <i class="fas fa-music"></i>
-                    <p>Listening to Music</p>
-                </div>
-                <div class="hobby-card">
-                    <i class="fas fa-plane"></i>
-                    <p>Traveling & Exploring</p>
-                </div>
-                <div class="hobby-card">
-                    <i class="fas fa-book"></i>
-                    <p>Reading Tech Blogs</p>
-                </div>
-                <div class="hobby-card">
-                    <i class="fas fa-code"></i>
-                    <p>Coding and AI Research</p>
-                </div>
-                <div class="hobby-card">
-                    <i class="fas fa-gamepad"></i>
-                    <p>Playing Video Games</p>
-                </div>
-            </div>
+<!-- Hobbies Column -->
+<div class="col-md-6 hobbies-section">
+    <h3 class="fw-bold"><i class="fas fa-heart"></i> Hobbies & Interests</h3>
+    <div class="hobby-cards">
+        <div class="hobby-card">
+            <i class="fas fa-music"></i>
+            <p>Listening to Music</p>
+        </div>
+        <div class="hobby-card">
+            <i class="fas fa-plane"></i>
+            <p>Traveling & Exploring</p>
+        </div>
+        <div class="hobby-card">
+            <i class="fas fa-book"></i>
+            <p>Reading Tech Blogs</p>
+        </div>
+        <div class="hobby-card">
+            <i class="fas fa-code"></i>
+            <p>Coding and AI Research</p>
+        </div>
+        <div class="hobby-card">
+            <i class="fas fa-chess"></i>
+            <p>Playing Chess</p>
         </div>
     </div>
 </div>
+
 
 <style>
 /* About Section Styling */
