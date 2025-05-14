@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-<title>{% block title %}Rashen-Project{% endblock %}</title>
+{% block title %}Rashen - Projects{% endblock %}
+
 {% block content %}
   <style>
     body {
@@ -18,11 +19,8 @@
       padding-bottom: 10px;
       margin-bottom: 30px;
       color: #ffdd57;
-      text-align: center; /* Centers the text */
-      
+      text-align: center;
     }
-
- 
 
     .project-list {
       display: grid;
@@ -33,55 +31,36 @@
 
     .project-item {
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 50, 0.8));
-      color: white;
       border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
     .project-item:hover {
       transform: translateY(-8px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-      border: 3px solid #d4af37; /* Gold border on hover */
-      background-color: rgba(255, 255, 255, 0.9); /* Slightly lighter background for effect */
-    }
-
-    .project-item:hover h3 {
-      color: #d4af37; /* Change text color to gold on hover */
+      border: 3px solid #d4af37;
     }
 
     .project-item h3 {
       padding: 20px;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #2c3e50;
       background-color: #ecf0f1;
       border-bottom: 2px solid #ddd;
+      margin: 0;
     }
 
-    .project-item p {
-      color: #7f8c8d;
-      font-size: 1rem;
-      line-height: 1.6;
-      padding: 20px;
-    }
-
-    .project-item a {
-      font-size: 1rem;
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .project-item a:hover {
-      color: #0056b3;
+    .video-thumbnail, .project-item img {
+      width: 100%;
+      height: auto;
+      border-bottom: 1px solid #ddd;
     }
 
     .video-thumbnail {
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid #ddd;
     }
 
     .video-thumbnail video {
@@ -112,9 +91,32 @@
       background: rgba(0, 0, 0, 0.6);
       transition: opacity 0.3s ease;
     }
+
+    .project-item .description {
+      padding: 20px;
+      font-size: 1rem;
+      color: #bdc3c7;
+    }
+
+    .toggle-desc {
+      color: #ffdd57;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .toggle-desc:hover {
+      color: #d4af37;
+    }
+
+    .btn-outline-primary {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
   </style>
 
   <h2>My Projects</h2>
+
   <div class="project-list">
     {% for project in projects %}
       <div class="project-item">
@@ -129,16 +131,23 @@
             <div class="play-button">▶</div>
           </div>
         {% elif project.image %}
-          <img src="{{ project.image.url }}" alt="{{ project.title }}" style="width: 100%; height: auto; border-bottom: 1px solid #ddd;">
+          <img src="{{ project.image.url }}" alt="{{ project.title }}">
         {% endif %}
 
-        <div style="padding: 0 20px 20px;">
-          <p>{{ project.description|truncatewords:20 }}</p>
+        <div class="description" data-id="{{ project.id }}">
+          <p class="short-desc">{{ project.description|truncatewords:20 }}</p>
+          <p class="full-desc" style="display: none;">{{ project.description }}</p>
 
-          {% if project.github_link %}
-            <p><a href="{{ project.github_link }}" target="_blank">View GitHub Repository →</a></p>
+          {% if project.description|length > 100 %}
+            <a href="javascript:void(0);" class="toggle-desc" data-id="{{ project.id }}">See More ↓</a>
           {% endif %}
         </div>
+
+        {% if project.github_link %}
+          <a href="{{ project.github_link }}" target="_blank" class="btn btn-sm btn-outline-primary">
+            View GitHub Repository →
+          </a>
+        {% endif %}
       </div>
     {% empty %}
       <p style="text-align: center; font-size: 1.5rem; color: #999;">No projects found.</p>
@@ -146,16 +155,41 @@
   </div>
 
   <script>
-    document.querySelectorAll('.video-thumbnail').forEach(function(thumbnail) {
-      thumbnail.addEventListener('click', function() {
-        const video = thumbnail.querySelector('video');
-        if (video.paused) {
-          video.play();
-          thumbnail.querySelector('.play-button').style.opacity = '0';
-        } else {
-          video.pause();
-          thumbnail.querySelector('.play-button').style.opacity = '1';
-        }
+    // Toggle description script
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.toggle-desc').forEach(button => {
+        button.addEventListener('click', function () {
+          const id = this.getAttribute('data-id');
+          const container = document.querySelector('.description[data-id="' + id + '"]');
+          const shortDesc = container.querySelector('.short-desc');
+          const fullDesc = container.querySelector('.full-desc');
+
+          if (fullDesc.style.display === 'none') {
+            shortDesc.style.display = 'none';
+            fullDesc.style.display = 'block';
+            this.textContent = 'See Less ↑';
+          } else {
+            shortDesc.style.display = 'block';
+            fullDesc.style.display = 'none';
+            this.textContent = 'See More ↓';
+          }
+        });
+      });
+
+      // Video play on thumbnail click
+      document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+        thumbnail.addEventListener('click', function () {
+          const video = thumbnail.querySelector('video');
+          const playBtn = thumbnail.querySelector('.play-button');
+
+          if (video.paused) {
+            video.play();
+            playBtn.style.opacity = '0';
+          } else {
+            video.pause();
+            playBtn.style.opacity = '1';
+          }
+        });
       });
     });
   </script>
